@@ -135,7 +135,7 @@ form step 2:
         }
     }
 
-2.2, to ues Sample code below for project file =>
+2.2, to ues Sample code below for project file which is called ScoreBoard.csproj=>
 
 
     <Project Sdk="Microsoft.NET.Sdk">
