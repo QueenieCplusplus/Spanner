@@ -156,3 +156,16 @@ form step 2:
       </ItemGroup>
 
     </Project>
+
+2.3, check Ref in the step 2.2 =>
+
+
+    This change adds references:
+
+    to the two C# Spanner Nuget packages "Google.Cloud.Spanner.Data" and "Google.Cloud.Spanner.V1" that you need to interact with the Cloud Spanner API.
+    
+    to the open source "CommandLineParser Nuget package" which is a handy library for handling command line input for console applications.
+    
+    to the "CommandLineUtil" project which is part of the dotnet-doc-samples Github repository and provides a useful "verbmap" extension to the CommandLineParser.
+    
+    
