@@ -415,4 +415,17 @@ from step 3
     Operation status: RanToCompletion
     Inserted players into sample database scoreboard on instance cloudspanner-leaderboard
     
-    
+ # DB Migraion - 3 -> Commitwithin TimeStamp 
+ 
+ from step 4
+ 
+ > Timestamp code
+ 
+ * 4.1, 
+
+     CREATE TABLE Scores(
+      PlayerId INT64 NOT NULL,
+      Score INT64 NOT NULL,
+      Timestamp TIMESTAMP NOT NULL OPTIONS(allow_commit_timestamp=true)
+    ) PRIMARY KEY(PlayerId, Timestamp),
+        INTERLEAVE IN PARENT Players ON DELETE NO ACTION
