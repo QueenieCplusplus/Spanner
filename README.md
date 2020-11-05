@@ -172,6 +172,10 @@ form step 2:
  
       $dotnet run
       
+      $dotnet run create
+      
+      $dotnet run create [PROJECT_ID] cloudspanner-scoreboard scoreboard
+      
       [output]
  
      ScoreBoard 1.0.0
