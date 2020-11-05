@@ -567,3 +567,8 @@ from step 3
           value pos. 2    Required. The ID of the database where the sample data resides.
 
           value pos. 3    (Default: 0) The timespan in hours that will be used to filter the results based on a record's timestamp. The default will return the 'Top Ten' scores of all time.
+
+* 5.6, to do query from Spanner Instance DB app.
+
+      dotnet run query PROJECT_ID [spanner instance name] [app name]
+      dotnet run query PROJECT_ID cloudspanner-leaderboard scoreboard
