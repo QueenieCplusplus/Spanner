@@ -43,16 +43,16 @@ form step 2:
 
 * 2.1, use Sample Code Below =>
 
-    using System;
-    using System.Threading.Tasks;
-    using Google.Cloud.Spanner.Data;
-    using CommandLine;
+        using System;
+        using System.Threading.Tasks;
+        using Google.Cloud.Spanner.Data;
+        using CommandLine;
 
-    namespace GoogleGame.ScoreBoard
-    {
-        [Verb("create", HelpText = "Create a sample Cloud Spanner database "
-            + "along with sample 'Players' and 'Scores' tables in your project.")]
-            
+        namespace GoogleGame.ScoreBoard
+        {
+            [Verb("create", HelpText = "Create a sample Cloud Spanner database "
+                + "along with sample 'Players' and 'Scores' tables in your project.")]
+
         class CreateOptions
         {
             [Value(0, HelpText = "The project ID of the project to use "
@@ -163,11 +163,11 @@ form step 2:
 
     This change adds references:
 
-    to the two C# Spanner Nuget packages "Google.Cloud.Spanner.Data" and "Google.Cloud.Spanner.V1" that you need to interact with the Cloud Spanner API.
-    
-    to the open source "CommandLineParser Nuget package" which is a handy library for handling command line input for console applications.
-    
-    to the "CommandLineUtil" project which is part of the dotnet-doc-samples Github repository and provides a useful "verbmap" extension to the CommandLineParser.
+        to the two C# Spanner Nuget packages "Google.Cloud.Spanner.Data" and "Google.Cloud.Spanner.V1" that you need to interact with the Cloud Spanner API.
+
+        to the open source "CommandLineParser Nuget package" which is a handy library for handling command line input for console applications.
+
+        to the "CommandLineUtil" project which is part of the dotnet-doc-samples Github repository and provides a useful "verbmap" extension to the CommandLineParser.
 
 # DB Migration - 1 -> Create DB
 
