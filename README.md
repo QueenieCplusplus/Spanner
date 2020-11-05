@@ -415,7 +415,7 @@ from step 3
     Operation status: RanToCompletion
     Inserted players into sample database scoreboard on instance cloudspanner-leaderboard
     
- # DB Migraion - 3 -> Commitwithin TimeStamp 
+ # DB Migraion - 3 -> Commit within TimeStamp 
  
  from step 4
  
