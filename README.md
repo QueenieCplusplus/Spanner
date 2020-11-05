@@ -421,11 +421,11 @@ from step 3
  
  > Timestamp code
  
- * 4.1, 
+ * 4.1, add timestamp column to table =>
 
-     CREATE TABLE Scores(
-      PlayerId INT64 NOT NULL,
-      Score INT64 NOT NULL,
-      Timestamp TIMESTAMP NOT NULL OPTIONS(allow_commit_timestamp=true)
-    ) PRIMARY KEY(PlayerId, Timestamp),
-        INTERLEAVE IN PARENT Players ON DELETE NO ACTION
+         CREATE TABLE Scores(
+          PlayerId INT64 NOT NULL,
+          Score INT64 NOT NULL,
+          Timestamp TIMESTAMP NOT NULL OPTIONS(allow_commit_timestamp=true)
+        ) PRIMARY KEY(PlayerId, Timestamp),
+            INTERLEAVE IN PARENT Players ON DELETE NO ACTION
