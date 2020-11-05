@@ -168,4 +168,20 @@ form step 2:
     
     to the "CommandLineUtil" project which is part of the dotnet-doc-samples Github repository and provides a useful "verbmap" extension to the CommandLineParser.
     
-    
+ 2.4, run the C# App =>
+ 
+      $dotnet run
+      
+      [output]
+ 
+     ScoreBoard 1.0.0
+     Copyright (C) 2020 ScoreBoard
+
+     ERROR(S):
+      No verb selected.
+
+      create     Create a sample Cloud Spanner database along with sample 'Players' and 'Scores' tables in your project.
+
+      help       Display more information on a specific command.
+
+      version    Display version information.
