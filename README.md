@@ -433,3 +433,10 @@ from step 3
 * 4.2, to run app again, and to load row data append timestamp.
 
         dotnet run insert [PROJECT_ID] cloudspanner-leaderboard scoreboard scores
+
+        [output]
+        
+        Waiting for insert players operation to complete...
+        Done inserting player records...
+        Operation status: RanToCompletion
+        Inserted scores into sample database scoreboard on instance cloudspanner-leaderboard
