@@ -1,6 +1,8 @@
 # Spanner
 GCP HA storage solution for DB migration
 
+![spanner](https://miro.medium.com/max/1000/1*t7MKxLVba5Nji_NOIKVrKw.png)
+
 # Core Steps
 
 (1) to set up Spanner instance (in GCP storage catalog)
