@@ -409,4 +409,10 @@ from step 3
 
     dotnet run insert [PROJECT_ID] cloudspanner-leaderboard scoreboard players
     
+    [output]
+    Waiting for insert players operation to complete...
+    Done inserting player records...
+    Operation status: RanToCompletion
+    Inserted players into sample database scoreboard on instance cloudspanner-leaderboard
+    
     
