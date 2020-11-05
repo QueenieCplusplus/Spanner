@@ -545,3 +545,25 @@ from step 3
 
         .Add((QueryOptions opts) => Query(
                             opts.projectId, opts.instanceId, opts.databaseId, opts.timespan))
+
+* 5.4, to run app again.
+
+       dotnet run 
+       
+       [output]
+       
+         create     Create a sample Cloud Spanner database along with sample 'Players' and 'Scores' tables in your project.
+         
+ * 5.5, to do query from app.
+ 
+        dotnet run query
+        
+        [output]
+        
+         value pos. 0    Required. The project ID of the project to use when managing Cloud Spanner resources.
+
+          value pos. 1    Required. The ID of the instance where the sample data resides.
+
+          value pos. 2    Required. The ID of the database where the sample data resides.
+
+          value pos. 3    (Default: 0) The timespan in hours that will be used to filter the results based on a record's timestamp. The default will return the 'Top Ten' scores of all time.
