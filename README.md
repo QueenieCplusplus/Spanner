@@ -452,3 +452,7 @@ from step 3
         ...
         cmd.Parameters["Timestamp"].Value = randomTimestamp.ToString("o");
         cmd.ExecuteNonQuery();
+
+* 4.4, check resulting output in cloud console => 
+
+![spanner db data loaded](https://cdn.qwiklabs.com/Aw0UslMut0XPY5dlDyxA70LQEy2QRbHOmy%2BMP%2Blo1Y0%3D)
