@@ -540,3 +540,8 @@ from step 3
                         }
                     }
                 }
+
+* 5.3, add following code into Main method =>
+
+        .Add((QueryOptions opts) => Query(
+                            opts.projectId, opts.instanceId, opts.databaseId, opts.timespan))
