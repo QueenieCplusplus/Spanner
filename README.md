@@ -378,10 +378,25 @@ from step 3
                         opts.projectId, opts.instanceId, opts.databaseId, opts.insertType))
                         
 
-* 3.4, run App again.
+* 3.4, run App again to create Schema and Table =>
 
          dotnet run
          
          [output]
          
           create     Create a sample Cloud Spanner database along with sample 'Players' and 'Scores' tables in your project.
+
+* 3.5, to load data.
+
+
+         dotnet run insert
+         
+         [output]
+
+          value pos. 0    Required. The project ID of the project to use when managing Cloud Spanner resources.
+
+          value pos. 1    Required. The ID of the instance where the sample database resides.
+
+          value pos. 2    Required. The ID of the database where the sample database resides.
+
+          value pos. 3    Required. The type of insert to perform, 'players' or 'scores'.
