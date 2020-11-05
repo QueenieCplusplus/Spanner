@@ -572,3 +572,10 @@ from step 3
 
       dotnet run query PROJECT_ID [spanner instance name] [app name]
       dotnet run query PROJECT_ID cloudspanner-leaderboard scoreboard
+      
+      [output]
+      
+        PlayerId : 1843159180 PlayerName : Player 87 Score : 998,955 Timestamp : 2016-03-23
+        PlayerId : 61891198 PlayerName : Player 19 Score : 998,720 Timestamp : 2016-03-26
+        PlayerId : 340906298 PlayerName : Player 48 Score : 993,302 Timestamp : 2015-08-27
+        
