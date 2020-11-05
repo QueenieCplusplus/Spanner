@@ -168,7 +168,9 @@ form step 2:
     to the open source "CommandLineParser Nuget package" which is a handy library for handling command line input for console applications.
     
     to the "CommandLineUtil" project which is part of the dotnet-doc-samples Github repository and provides a useful "verbmap" extension to the CommandLineParser.
-    
+
+# DB Migration - 1 -> Create DB
+
 * 2.4, run the C# App =>
  
       $dotnet run
@@ -400,3 +402,11 @@ from step 3
           value pos. 2    Required. The ID of the database where the sample database resides.
 
           value pos. 3    Required. The type of insert to perform, 'players' or 'scores'.
+
+# DB Migration - 2 -> Load Data
+
+    dotnet run insert [PROJECT_ID] [spanner instance name] [app name] [column name]
+
+    dotnet run insert [PROJECT_ID] cloudspanner-leaderboard scoreboard players
+    
+    
