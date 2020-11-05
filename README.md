@@ -440,3 +440,15 @@ from step 3
         Done inserting player records...
         Operation status: RanToCompletion
         Inserted scores into sample database scoreboard on instance cloudspanner-leaderboard
+
+* 4.3, create generatior code for timestamp convert into DateTime =>
+
+           DateTime randomTimestamp = DateTime.Now
+             .AddYears(r.Next(-2, 1))
+             .AddMonths(r.Next(-12, 1))
+             .AddDays(r.Next(-10, 1))
+             .AddSeconds(r.Next(-60, 0))
+             .AddMilliseconds(r.Next(-100000, 0));
+        ...
+        cmd.Parameters["Timestamp"].Value = randomTimestamp.ToString("o");
+        cmd.ExecuteNonQuery();
