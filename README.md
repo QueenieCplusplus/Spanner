@@ -174,7 +174,7 @@ form step 2:
       
       $dotnet run create
       
-      $dotnet run create [PROJECT_ID] cloudspanner-scoreboard scoreboard
+      $dotnet run create [PROJECT_ID] [spanner name see step 1.1] scoreboard
       
       [output]
  
