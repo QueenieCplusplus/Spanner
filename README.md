@@ -189,3 +189,7 @@ form step 2:
       help       Display more information on a specific command.
 
       version    Display version information.
+
+ 2.5, check resulting output in Cloud Console =>
+ 
+  ![spanner db](https://cdn.qwiklabs.com/GT4%2BCTBJZHw3ADZ8SPHqrDXrYr5HkWkmJ7sgsPQkJqs%3D)
