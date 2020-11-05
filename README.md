@@ -456,3 +456,87 @@ from step 3
 * 4.4, check resulting output in cloud console => 
 
 ![spanner db data loaded](https://cdn.qwiklabs.com/Aw0UslMut0XPY5dlDyxA70LQEy2QRbHOmy%2BMP%2Blo1Y0%3D)
+
+# DB Migration - 4 -> Query from Spanner Instance DB app
+
+* 5.1, 
+
+        [Verb("query", HelpText = "Query players with 'Top Ten' scores within a specific timespan "
+            + "from sample Cloud Spanner database table.")]
+        class QueryOptions
+        {
+            [Value(0, HelpText = "The project ID of the project to use "
+                + "when managing Cloud Spanner resources.", Required = true)]
+            public string projectId { get; set; }
+            [Value(1, HelpText = "The ID of the instance where the sample data resides.",
+                Required = true)]
+            public string instanceId { get; set; }
+            [Value(2, HelpText = "The ID of the database where the sample data resides.",
+                Required = true)]
+            public string databaseId { get; set; }
+            [Value(3, Default = 0, HelpText = "The timespan in hours that will be used to filter the "
+                + "results based on a record's timestamp. The default will return the "
+                + "'Top Ten' scores of all time.")]
+            public int timespan { get; set; }
+        }
+        
+  * 5.2, add code below under existing method called "InsertScoreAsync" =>
+  
+          public static object Query(string projectId,
+                    string instanceId, string databaseId, int timespan)
+                {
+                    var response = QueryAsync(
+                        projectId, instanceId, databaseId, timespan);
+                    response.Wait();
+                    return ExitCode.Success;
+                }
+
+        public static async Task QueryAsync(
+                    string projectId, string instanceId, string databaseId, int timespan)
+                {
+                    string connectionString =
+                    $"Data Source=projects/{projectId}/instances/"
+                    + $"{instanceId}/databases/{databaseId}";
+                    // Create connection to Cloud Spanner.
+                    using (var connection = new SpannerConnection(connectionString))
+                    {
+                        string sqlCommand;
+                        if (timespan == 0)
+                        {
+                            // No timespan specified. Query Top Ten scores of all time.
+                            sqlCommand =
+                                @"SELECT p.PlayerId, p.PlayerName, s.Score, s.Timestamp
+                                    FROM Players p
+                                    JOIN Scores s ON p.PlayerId = s.PlayerId
+                                    ORDER BY s.Score DESC LIMIT 10";
+                        }
+                        else
+                        {
+                            // Query Top Ten scores filtered by the timepan specified.
+                            sqlCommand =
+                                $@"SELECT p.PlayerId, p.PlayerName, s.Score, s.Timestamp
+                                    FROM Players p
+                                    JOIN Scores s ON p.PlayerId = s.PlayerId
+                                    WHERE s.Timestamp >
+                                    TIMESTAMP_SUB(CURRENT_TIMESTAMP(),
+                                        INTERVAL {timespan.ToString()} HOUR)
+                                    ORDER BY s.Score DESC LIMIT 10";
+                        }
+                        var cmd = connection.CreateSelectCommand(sqlCommand);
+                        using (var reader = await cmd.ExecuteReaderAsync())
+                        {
+                            while (await reader.ReadAsync())
+                            {
+                                Console.WriteLine("PlayerId : "
+                                  + reader.GetFieldValue<string>("PlayerId")
+                                  + " PlayerName : "
+                                  + reader.GetFieldValue<string>("PlayerName")
+                                  + " Score : "
+                                  + string.Format("{0:n0}",
+                                    Int64.Parse(reader.GetFieldValue<string>("Score")))
+                                  + " Timestamp : "
+                                  + reader.GetFieldValue<string>("Timestamp").Substring(0, 10));
+                            }
+                        }
+                    }
+                }
