@@ -377,3 +377,11 @@ from step 3
          .Add((InsertOptions opts) => Insert(
                         opts.projectId, opts.instanceId, opts.databaseId, opts.insertType))
                         
+
+* 3.4, run App again.
+
+         dotnet run
+         
+         [output]
+         
+          create     Create a sample Cloud Spanner database along with sample 'Players' and 'Scores' tables in your project.
