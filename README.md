@@ -429,3 +429,7 @@ from step 3
           Timestamp TIMESTAMP NOT NULL OPTIONS(allow_commit_timestamp=true)
         ) PRIMARY KEY(PlayerId, Timestamp),
             INTERLEAVE IN PARENT Players ON DELETE NO ACTION
+
+* 4.2, to run app again, and to load row data append timestamp.
+
+        dotnet run insert [PROJECT_ID] cloudspanner-leaderboard scoreboard scores
