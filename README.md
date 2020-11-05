@@ -212,3 +212,162 @@ from step 3
                 Required = true)]
             public string insertType { get; set; }
         }
+
+* 3.2, add methods below beneath the existing method called "CreateAsync" =>
+
+        public static object Insert(string projectId,
+            string instanceId, string databaseId, string insertType)
+        {
+            if (insertType.ToLower() == "players")
+            {
+                var responseTask =
+                    InsertPlayersAsync(projectId, instanceId, databaseId);
+                Console.WriteLine("Waiting for insert players operation to complete...");
+                responseTask.Wait();
+                Console.WriteLine($"Operation status: {responseTask.Status}");
+            }
+            else if (insertType.ToLower() == "scores")
+            {
+                var responseTask =
+                    InsertScoresAsync(projectId, instanceId, databaseId);
+                Console.WriteLine("Waiting for insert scores operation to complete...");
+                responseTask.Wait();
+                Console.WriteLine($"Operation status: {responseTask.Status}");
+            }
+            else
+            {
+                Console.WriteLine("Invalid value for 'type of insert'. "
+                    + "Specify 'players' or 'scores'.");
+                return ExitCode.InvalidParameter;
+            }
+            Console.WriteLine($"Inserted {insertType} into sample database "
+                + $"{databaseId} on instance {instanceId}");
+            return ExitCode.Success;
+        }
+
+        public static async Task InsertPlayersAsync(string projectId,
+            string instanceId, string databaseId)
+        {
+            string connectionString =
+                $"Data Source=projects/{projectId}/instances/{instanceId}"
+                + $"/databases/{databaseId}";
+            Int64 numberOfPlayers = 0;
+            using (var connection = new SpannerConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                using (var tx = await connection.BeginTransactionAsync())
+                {
+                    // Execute a SQL statement to get current number of records
+                    // in the Players table.
+                    var cmd = connection.CreateSelectCommand(
+                        @"SELECT Count(PlayerId) as PlayerCount FROM Players");
+                    cmd.Transaction = tx;
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            long parsedValue;
+                            if (reader["PlayerCount"] != DBNull.Value)
+                            {
+                                bool result = Int64.TryParse(
+                                    reader.GetFieldValue<string>("PlayerCount"),
+                                        out parsedValue);
+                                if (result)
+                                {
+                                    numberOfPlayers = parsedValue;
+                                }
+                            }
+                        }
+                    }
+                    // Insert 100 player records into the Players table.
+                    using (cmd = connection.CreateInsertCommand(
+                        "Players", new SpannerParameterCollection
+                    {
+                        { "PlayerId", SpannerDbType.String },
+                        { "PlayerName", SpannerDbType.String }
+                    }))
+                    {
+                        cmd.Transaction = tx;
+                        for (var x = 1; x <= 100; x++)
+                        {
+                            numberOfPlayers++;
+                            cmd.Parameters["PlayerId"].Value =
+                                Math.Abs(Guid.NewGuid().GetHashCode());
+                            cmd.Parameters["PlayerName"].Value =
+                                $"Player {numberOfPlayers}";
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                    await tx.CommitAsync();
+                }
+            }
+            Console.WriteLine("Done inserting player records...");
+        }
+
+        public static async Task InsertScoresAsync(
+            string projectId, string instanceId, string databaseId)
+        {
+            string connectionString =
+            $"Data Source=projects/{projectId}/instances/{instanceId}"
+            + $"/databases/{databaseId}";
+
+            // Insert 4 score records into the Scores table for each player in the Players table.
+            using (var connection = new SpannerConnection(connectionString))
+            {
+                await connection.OpenAsync();
+                Random r = new Random();
+                bool playerRecordsFound = false;
+                var cmdLookup = connection.CreateSelectCommand("SELECT * FROM Players");
+                using (var reader = await cmdLookup.ExecuteReaderAsync())
+                {
+                    while (await reader.ReadAsync())
+                    {
+                        if (!playerRecordsFound)
+                        {
+                            playerRecordsFound = true;
+                        }
+                        using (var tx = await connection.BeginTransactionAsync())
+                        using (var cmd = connection.CreateInsertCommand(
+                            "Scores", new SpannerParameterCollection
+                        {
+                            { "PlayerId", SpannerDbType.String },
+                            { "Score", SpannerDbType.Int64 },
+                            { "Timestamp", SpannerDbType.Timestamp }
+                        }))
+                        {
+                            cmd.Transaction = tx;
+                            for (var x = 1; x <= 4; x++)
+                            {
+                                DateTime randomTimestamp = DateTime.Now
+                                    .AddYears(r.Next(-2, 1))
+                                    .AddMonths(r.Next(-12, 1))
+                                    .AddDays(r.Next(-10, 1))
+                                    .AddSeconds(r.Next(-60, 0))
+                                    .AddMilliseconds(r.Next(-100000, 0));
+                                cmd.Parameters["PlayerId"].Value =
+                                    reader.GetFieldValue<int>("PlayerId");
+                                // Insert random score value between 10000 and 1000000.
+                                cmd.Parameters["Score"].Value = r.Next(1000, 1000001);
+                                // Insert random past timestamp
+                                // value into Timestamp column.
+                                cmd.Parameters["Timestamp"].Value =
+                                    randomTimestamp.ToString("o");
+                                cmd.ExecuteNonQuery();
+                            }
+                            await tx.CommitAsync();
+                        }
+                    }
+                    if (!playerRecordsFound)
+                    {
+                        Console.WriteLine("Parameter 'scores' is invalid since "
+                        + "no player records currently exist. First insert players "
+                        + "then insert scores.");
+                        Environment.Exit((int)ExitCode.InvalidParameter);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Done inserting score records...");
+                    }
+                }
+            }
+        }
