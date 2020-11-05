@@ -25,6 +25,7 @@ GCP HA storage solution for DB migration
 
 4. Relational DB
 
+5. ACID (supported)
 
 -----------------------------------------------
 
@@ -32,7 +33,7 @@ from step 1:
 
 > to create a Spanner Instance
 
-1.1, In Cloud Console, Nagivation Bar >> Storage >> Spanner 
+* 1.1, In Cloud Console, Nagivation Bar >> Storage >> Spanner 
 
 ![spanner](https://cdn.qwiklabs.com/oMyUIWRK4c6QIJwGdsCG40%2Fl6uaAZ8AsOAJ6eEvYTnA%3D)
 
@@ -40,7 +41,7 @@ form step 2:
 
 > to create DB 
 
-2.1, use Sample Code Below =>
+* 2.1, use Sample Code Below =>
 
     using System;
     using System.Threading.Tasks;
@@ -135,7 +136,7 @@ form step 2:
         }
     }
 
-2.2, to ues Sample code below for project file which is called ScoreBoard.csproj=>
+* 2.2, to ues Sample code below for project file which is called ScoreBoard.csproj=>
 
 
     <Project Sdk="Microsoft.NET.Sdk">
@@ -157,7 +158,7 @@ form step 2:
 
     </Project>
 
-2.3, check Ref in the step 2.2 =>
+* 2.3, check Ref in the step 2.2 =>
 
 
     This change adds references:
@@ -168,7 +169,7 @@ form step 2:
     
     to the "CommandLineUtil" project which is part of the dotnet-doc-samples Github repository and provides a useful "verbmap" extension to the CommandLineParser.
     
- 2.4, run the C# App =>
+* 2.4, run the C# App =>
  
       $dotnet run
       
@@ -184,6 +185,30 @@ form step 2:
         Operation status: RanToCompletion
         Created sample database scoreboard on instance cloudspanner-leaderboard
 
- 2.5, check resulting output in Cloud Console =>
+* 2.5, check resulting output in Cloud Console =>
  
   ![spanner db](https://cdn.qwiklabs.com/GT4%2BCTBJZHw3ADZ8SPHqrDXrYr5HkWkmJ7sgsPQkJqs%3D)
+
+from step 3
+
+> to add ACID feature code block and load data.
+
+* 3.1, add insert cmd code block under "Verbmap"
+
+    [Verb("insert", HelpText = "Insert sample 'players' records or 'scores' records "
+            + "into the database.")]
+        class InsertOptions
+        {
+            [Value(0, HelpText = "The project ID of the project to use "
+                + "when managing Cloud Spanner resources.", Required = true)]
+            public string projectId { get; set; }
+            [Value(1, HelpText = "The ID of the instance where the sample database resides.",
+                Required = true)]
+            public string instanceId { get; set; }
+            [Value(2, HelpText = "The ID of the database where the sample database resides.",
+                Required = true)]
+            public string databaseId { get; set; }
+            [Value(3, HelpText = "The type of insert to perform, 'players' or 'scores'.",
+                Required = true)]
+            public string insertType { get; set; }
+        }
