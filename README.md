@@ -42,10 +42,10 @@ form step 2:
 
 2.1, use Sample Code Below =>
 
-using System;
-using System.Threading.Tasks;
-using Google.Cloud.Spanner.Data;
-using CommandLine;
+    using System;
+    using System.Threading.Tasks;
+    using Google.Cloud.Spanner.Data;
+    using CommandLine;
 
     namespace GoogleGame.ScoreBoard
     {
@@ -134,3 +134,25 @@ using CommandLine;
             }
         }
     }
+
+2.2, to ues Sample code below for project file =>
+
+
+    <Project Sdk="Microsoft.NET.Sdk">
+
+      <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>netcoreapp2.1</TargetFramework>
+      </PropertyGroup>
+
+      <ItemGroup>
+        <PackageReference Include="CommandLineParser" Version="2.8.0" />
+        <PackageReference Include="Google.Cloud.Spanner.Data" Version="2.0.0" />
+        <PackageReference Include="Google.Cloud.Spanner.V1" Version="2.0.0" />
+      </ItemGroup>
+
+      <ItemGroup>
+        <ProjectReference Include="..\..\..\commandlineutil\Lib\CommandLineUtil.csproj" />
+      </ItemGroup>
+
+    </Project>
