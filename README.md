@@ -9,7 +9,7 @@ GCP HA storage solution for DB migration
 
 (3) to load data
 
-(4) to commit column due to timestamp
+(4) to commit row data for column due to timestamp (DateTime convertor is included)
 
 (5) to query from Sapnner DB
 
