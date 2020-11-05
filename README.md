@@ -371,3 +371,8 @@ from step 3
                 }
             }
         }
+
+* 3.3, add following code into Main method =>
+
+         .Add((InsertOptions opts) => Insert(
+                        opts.projectId, opts.instanceId, opts.databaseId, opts.insertType))
