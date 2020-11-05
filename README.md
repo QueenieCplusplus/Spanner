@@ -180,17 +180,9 @@ form step 2:
       
       [output]
  
-     ScoreBoard 1.0.0
-     Copyright (C) 2020 ScoreBoard
-
-     ERROR(S):
-      No verb selected.
-
-      create     Create a sample Cloud Spanner database along with sample 'Players' and 'Scores' tables in your project.
-
-      help       Display more information on a specific command.
-
-      version    Display version information.
+        Waiting for operation to complete...
+        Operation status: RanToCompletion
+        Created sample database scoreboard on instance cloudspanner-leaderboard
 
  2.5, check resulting output in Cloud Console =>
  
