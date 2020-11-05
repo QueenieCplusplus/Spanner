@@ -197,23 +197,23 @@ from step 3
 
 * 3.1, add insert cmd code block under "Verbmap"
 
-    [Verb("insert", HelpText = "Insert sample 'players' records or 'scores' records "
-            + "into the database.")]
-        class InsertOptions
-        {
-            [Value(0, HelpText = "The project ID of the project to use "
-                + "when managing Cloud Spanner resources.", Required = true)]
-            public string projectId { get; set; }
-            [Value(1, HelpText = "The ID of the instance where the sample database resides.",
-                Required = true)]
-            public string instanceId { get; set; }
-            [Value(2, HelpText = "The ID of the database where the sample database resides.",
-                Required = true)]
-            public string databaseId { get; set; }
-            [Value(3, HelpText = "The type of insert to perform, 'players' or 'scores'.",
-                Required = true)]
-            public string insertType { get; set; }
-        }
+            [Verb("insert", HelpText = "Insert sample 'players' records or 'scores' records "
+                    + "into the database.")]
+                class InsertOptions
+                {
+                    [Value(0, HelpText = "The project ID of the project to use "
+                        + "when managing Cloud Spanner resources.", Required = true)]
+                    public string projectId { get; set; }
+                    [Value(1, HelpText = "The ID of the instance where the sample database resides.",
+                        Required = true)]
+                    public string instanceId { get; set; }
+                    [Value(2, HelpText = "The ID of the database where the sample database resides.",
+                        Required = true)]
+                    public string databaseId { get; set; }
+                    [Value(3, HelpText = "The type of insert to perform, 'players' or 'scores'.",
+                        Required = true)]
+                    public string insertType { get; set; }
+                }
 
 * 3.2, add methods below beneath the existing method called "CreateAsync" =>
 
