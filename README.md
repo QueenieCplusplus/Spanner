@@ -27,3 +27,11 @@ GCP HA storage solution for DB migration
 
 
 -----------------------------------------------
+
+from step 1:
+
+> to create a Spanner Instance
+
+1.1, In Cloud Console, Nagivation Bar >> Storage >> Spanner 
+
+![spanner](https://cdn.qwiklabs.com/oMyUIWRK4c6QIJwGdsCG40%2Fl6uaAZ8AsOAJ6eEvYTnA%3D)
